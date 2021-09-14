@@ -74,6 +74,10 @@ namespace WebUI.domain
                     name: "default", 
                     pattern: "{controller=home}/{action=index}/{id?}");
             });
+
+
+            SeedRole.EnsurePopulated(app);
+            SeedAdmin.EnsurePopulated(app);
         }
     }
 }

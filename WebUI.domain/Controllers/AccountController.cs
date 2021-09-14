@@ -86,7 +86,7 @@ namespace WebUI.domain.Controllers
             var result = await _userManager.CreateAsync(user, new Guid().ToString("N").Substring(0,8));
             if (result.Succeeded)
             {
-                new Customer
+                var customer = new Customer
                 {
                     UserId = user.Id,
                     Birthday = model.Birthday,
@@ -95,11 +95,12 @@ namespace WebUI.domain.Controllers
                     {
                         AccountType = model.AccountType,
 
-                        
+
                     }
-                }
+                };
             }
 
+            return View();
         }
 
         [HttpPost]

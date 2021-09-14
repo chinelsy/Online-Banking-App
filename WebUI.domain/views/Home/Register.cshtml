@@ -10,51 +10,7 @@
 
 </head>
 <body>
-<form asp-action="Register" asp-controller="Home" method="post">
-    <div asp-validation-summary="ModelOnly"></div>
-    <h1>Registration Form</h1>
-    <div class="form-group col-xl-4">
-        <label asp-for="FirstName">Enter First Name:</label>
-        <input asp-for="FirstName" class="form-control "/>
-        <span asp-validation-for="FirstName" class="text-danger"></span>
-    </div>
-    <div class="form-group col-xl-4">
-        <label asp-for="LastName">Enter Last Name:</label>
-        <input asp-for="LastName" class="form-control "/>
-        <span asp-validation-for="LastName" class="text-danger"></span>
-    </div>
-    <div class="form-group col-xl-4">
-        <label asp-for="Email">Provide Your Email</label>
-        <input asp-for="Email" class="form-control "/>
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
 
-    <div class="form-group col-xl-4">
-        <label asp-for="Birthday">Enter Date Of Birth </label>
-        <input asp-for="Birthday" type="date" class="form-control "/>
-    </div>
-
-
-    <div class="form-group col-xl-4">
-        <label asp-for="Gender">Select Gender</label>
-        <select asp-for="Gender">
-            <option value="Male">Select A Gender </option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="PreferNotToSay">Prefer not to say</option>
-        </select>
-    </div>
-    <div class="form-group col-xl-4">
-        <label asp-for="AccountType">Chose An Account Type You Would Like to Open</label>
-        <select asp-for="AccountType">
-            <option value="Male">Select An Acount Type </option>
-            <option value="Saving">Saving</option>
-            <option value="Student">Student</option>
-        </select>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
 </body>
 </html>
     

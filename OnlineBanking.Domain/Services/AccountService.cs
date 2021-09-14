@@ -2,8 +2,7 @@
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using OnlineBanking.Domain.Encryption;using OnlineBanking.Domain.Interfaces.Services;
-
+using OnlineBanking.Domain.Interfaces.Services;
 using OnlineBanking.Domain.Entities;
 using OnlineBanking.Domain.Interfaces.Repositories;
 using OnlineBanking.Domain.Model;
@@ -20,25 +19,6 @@ namespace OnlineBanking.Domain.Services
             _unitOfWork = unitOfWork;
             _accountRepo = accountRepo;
         }
-        
-        /*public Account Login(LoginViewModel model)
-        {
-            Console.ForegroundColor = ConsoleColor.White;
-            model.Email = model.Email.Trim().ToLower();
-            model.Password = model.Password.Trim().ToLower();
-            var authenticationResult = AuthenticateUser(model.Email, model.Password);
-
-            if (!authenticationResult.isValidated)
-            {
-                Console.WriteLine("Invalid Username or password\n");
-                return authenticationResult.Item2;
-            }
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("login Successful\n\n");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(authenticationResult.account.Balance);
-            return authenticationResult.account;
-        }*/
 
         public (int affectedRow, Account account) Delete(int id)
         {

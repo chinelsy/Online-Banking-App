@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using OnlineBanking.Domain.Entities;
 using OnlineBanking.Domain.Interfaces.Repositories;
@@ -10,12 +9,12 @@ using WebUI.domain.Models;
 
 namespace WebUI.domain.Services
 {
-    public class CustomerService: ICustomerService
+    public class CustomerService : ICustomerService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICustomerRepository _customerRepo;
 
-        public CustomerService(IUnitOfWork unitOfWork, ICustomerRepository customerRepo )
+        public CustomerService(IUnitOfWork unitOfWork, ICustomerRepository customerRepo)
         {
             _unitOfWork = unitOfWork;
             _customerRepo = customerRepo;
@@ -25,14 +24,14 @@ namespace WebUI.domain.Services
         {
             var customer = new Customer
             {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Email = model.Email,
+               
                 Birthday = model.Birthday,
                 Gender = model.Gender,
-                AccountType = model.AccountType,
 
-                Account = new Account()
+                Account = new Account
+                {
+                    AccountType = model.AccountType
+                }
             };
 
             _customerRepo.Add(customer);
