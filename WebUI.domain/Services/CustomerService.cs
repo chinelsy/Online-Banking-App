@@ -1,10 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using OnlineBanking.Domain.Entities;
+using OnlineBanking.Domain.Enumerators;
 using OnlineBanking.Domain.Interfaces.Repositories;
 using OnlineBanking.Domain.UnitOfWork;
 using WebUI.domain.Interfaces.Services;
+using WebUI.domain.Model;
 using WebUI.domain.Models;
 
 namespace WebUI.domain.Services
@@ -20,17 +22,21 @@ namespace WebUI.domain.Services
             _customerRepo = customerRepo;
         }
 
-        public void Add(CustomerViewModel model)
+        public void Add(EnrollCustomerViewModel model, User user, ClaimsViewModel claims)
         {
             var customer = new Customer
             {
-               
+                UserId = user.Id,
                 Birthday = model.Birthday,
                 Gender = model.Gender,
-
                 Account = new Account
                 {
-                    AccountType = model.AccountType
+                    AccountType = model.AccountType,
+                    AccountNumber = RandomNumberGenerator.GetInt32(9998, 9999) * RandomNumberGenerator.GetInt32(99998, 99999),
+                    CreatedBy = claims.Username,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    Balance = model.AccountType != AccountType.Savings ? 0 : 5000
                 }
             };
 

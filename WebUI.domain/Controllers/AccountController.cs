@@ -2,14 +2,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using OnlineBanking.Domain.Entities;
+using OnlineBanking.Domain.Enumerators;
 using OnlineBanking.Domain.Interfaces.Services;
 using OnlineBanking.Domain.Services;
+using WebUI.domain.Interfaces.Services;
+using WebUI.domain.Middlewares;
 using WebUI.domain.Model;
+using WebUI.domain.Models;
 
 namespace WebUI.domain.Controllers
 {
@@ -18,12 +23,19 @@ namespace WebUI.domain.Controllers
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<AppRole> _roleManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly ICustomerService _customerService;
 
-        public AccountController(UserManager<User> userManager, RoleManager<AppRole> roleManager, SignInManager<User> signInManager)
+        public AccountController(
+            UserManager<User> userManager,
+            RoleManager<AppRole> roleManager,
+            SignInManager<User> signInManager,
+            ICustomerService customerService
+            )
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _customerService = customerService;
         }
 
         public async Task<IActionResult> LogIn(string returnUrl = null)
@@ -176,17 +188,10 @@ namespace WebUI.domain.Controllers
             return View();
         }
 
-
         public ViewResult AccessDenied()
         {
             return View();
         }
-
-
-
-
-
-
 
 
         public IActionResult EnrollCustomer()
@@ -207,38 +212,24 @@ namespace WebUI.domain.Controllers
                 Email = model.Email,
                 UserName = model.Email
             };
-            var result = await _userManager.CreateAsync(user, new Guid().ToString("N").Substring(0,8));
+            var randPassword = new Guid().ToString("N").Substring(0, 8);
+
+            var result = await _userManager.CreateAsync(user, randPassword);
             if (result.Succeeded)
             {
-                var customer = new Customer
-                {
-                    UserId = user.Id,
-                    Birthday = model.Birthday,
-                    Gender = model.Gender,
-                    Account = new Account
-                    {
-                        AccountType = model.AccountType,
+               _customerService.Add(model, user, new ClaimsViewModel{Username = User.GetUsername()});
 
-                    }
-                };
+               TempData["EnrollSuccess"] = "Enrollment Was Successful!";
+
+               //Send Mail To User With Credentials
+               
+               return RedirectToAction("Index", "Home");
+
             }
-
+            ModelState.AddModelError(string.Empty, "An Error Occurred!!");
             return View();
         }
-        //
-        // [HttpPost]
-        // public async Task<IActionResult> LogIn(LoginViewModel model)
-        // {
-        //     if (!ModelState.IsValid) return View(model);
-        //     var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: model.RememberMe, false);
-        //     if (result.Succeeded)
-        //     {
-        //         // var user = _userService.Get(model.Email);
-        //         return RedirectToAction("Index", "Home");
-        //     }
-        //     ModelState.AddModelError(String.Empty, "Invalid Login Attempt");
-        //     return View(model);
-        // }
+       
         [HttpPost]
         public async Task<IActionResult> LogOut()
         {
