@@ -177,6 +177,12 @@ namespace WebUI.domain.Controllers
         }
 
 
+        public ViewResult AccessDenied()
+        {
+            return View();
+        }
+
+
 
 
 
@@ -219,20 +225,20 @@ namespace WebUI.domain.Controllers
 
             return View();
         }
-
-        [HttpPost]
-        public async Task<IActionResult> LogIn(LoginViewModel model)
-        {
-            if (!ModelState.IsValid) return View(model);
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: model.RememberMe, false);
-            if (result.Succeeded)
-            {
-                // var user = _userService.Get(model.Email);
-                return RedirectToAction("Index", "Home");
-            }
-            ModelState.AddModelError(String.Empty, "Invalid Login Attempt");
-            return View(model);
-        }
+        //
+        // [HttpPost]
+        // public async Task<IActionResult> LogIn(LoginViewModel model)
+        // {
+        //     if (!ModelState.IsValid) return View(model);
+        //     var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: model.RememberMe, false);
+        //     if (result.Succeeded)
+        //     {
+        //         // var user = _userService.Get(model.Email);
+        //         return RedirectToAction("Index", "Home");
+        //     }
+        //     ModelState.AddModelError(String.Empty, "Invalid Login Attempt");
+        //     return View(model);
+        // }
         [HttpPost]
         public async Task<IActionResult> LogOut()
         {

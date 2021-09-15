@@ -1,19 +1,22 @@
-﻿@{
+﻿@using WebUI.domain.Middlewares
+@{
     Layout = "_Layout";
 }
 @{ ViewData["Title"] = "Index"; }
 
-<body>
 
-    <div>
-        <div class="row">
-            <div class="col">
-                <img src="~/images/Fintech-image.png" class="" alt="ShEx" />
-            </div>
-            <div class="col">
-                <h1>Dont Get It twisted! <br />ShEx is an Acronym for (Sh)ola and Al(Ex)</h1>
+    @if (User.GetRoles().Contains("Customer") || User.GetRoles().Contains("Admin"))
+    {
+        <div>
+            <div class="row">
+                <div class="col">
+                    <img src="~/images/Fintech-image.png" class="" alt="ShEx" />
+                </div>
+                <div class="col">
+                    <h1>Dont Get It twisted! <br />ShEx is an Acronym for (Sh)ola and Al(Ex)</h1>
+                </div>
             </div>
         </div>
-    </div>
+    }
+  
 
-</body>

@@ -22,7 +22,7 @@ namespace WebUI.domain.Services
                 var userManager = app.ApplicationServices
                     .CreateScope().ServiceProvider
                     .GetRequiredService<UserManager<User>>();
-                var user = await userManager.FindByIdAsync(AdminUser);
+                var user = await userManager.FindByNameAsync(AdminUser);
                 if (user != null) return;
                 user = new User
                     { Email = "admin@domain.com", UserName = "Admin", PhoneNumber = "090-123-4090", EmailConfirmed = true };

@@ -35,6 +35,12 @@ namespace WebUI.domain
             services.AddDBConnection(Configuration);
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.ConfigureApplicationCookie(c =>
+            {
+                c.LoginPath = "/Account/Login";
+                c.LogoutPath = "/Home/Index";
+                c.AccessDeniedPath = "/Account/AccessDenied";
+            });
 
             services.AddScoped<DbContext, AppDbContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();

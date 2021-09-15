@@ -25,6 +25,7 @@ namespace OnlineBanking.Domain.Entities
 
         [ForeignKey(nameof(AccountId))]
         public Account Account { get; set; }
+        public bool DefaultPassword { get; set; } = true;
 
     }
 }

@@ -29,7 +29,7 @@ namespace WebUI.domain.Services
                
         }
 
-        public static async Task Create(string name)
+        private static async Task Create(string name)
         {
             if (!await _roleManager.RoleExistsAsync(name))
             {
