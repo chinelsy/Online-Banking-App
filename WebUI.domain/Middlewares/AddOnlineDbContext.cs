@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using OnlineBanking.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
+
 
 namespace WebUI.domain.Middlewares
 {
@@ -29,14 +29,8 @@ namespace WebUI.domain.Middlewares
                 options.Lockout.MaxFailedAccessAttempts = 4;
                 options.Lockout.AllowedForNewUsers = true;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
-            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders().AddDefaultUI();
 
-            
-            // services.AddIdentity<User, IdentityRole>(options =>
-            // {
-            //     options.SignIn.RequireConfirmedEmail = false;
-            // } ).AddEntityFrameworkStores<AppDbContext>()
-            //     .AddDefaultTokenProviders();
 
             return services;
         }

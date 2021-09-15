@@ -21,11 +21,11 @@ namespace WebUI.domain.Services
 
                 var userManager = app.ApplicationServices
                     .CreateScope().ServiceProvider
-                    .GetRequiredService<UserManager<IdentityUser>>();
+                    .GetRequiredService<UserManager<User>>();
                 var user = await userManager.FindByIdAsync(AdminUser);
                 if (user != null) return;
-                user = new IdentityUser("Admin")
-                    { Email = "admin@domain.com", PhoneNumber = "090-123-4090", EmailConfirmed = true };
+                user = new User
+                    { Email = "admin@domain.com", UserName = "Admin", PhoneNumber = "090-123-4090", EmailConfirmed = true };
                 var createUser = await userManager.CreateAsync(user, AdminPassword);
 
                 if (createUser.Succeeded) await userManager.AddToRoleAsync(user, "Admin");

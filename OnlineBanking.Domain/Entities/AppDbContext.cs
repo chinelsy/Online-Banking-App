@@ -17,7 +17,6 @@ namespace OnlineBanking.Domain.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Seed();
             base.OnModelCreating(modelBuilder);
         }
 

@@ -11,7 +11,7 @@ namespace WebUI.domain.Services
     public static class SeedRole
     {
 
-        private static RoleManager<IdentityRole> _roleManager;
+        private static RoleManager<AppRole> _roleManager;
 
         public static async void EnsurePopulated(IApplicationBuilder app)
         {
@@ -22,7 +22,7 @@ namespace WebUI.domain.Services
 
             _roleManager = app.ApplicationServices
                 .CreateScope().ServiceProvider
-                .GetRequiredService<RoleManager<IdentityRole>>();
+                .GetRequiredService<RoleManager<AppRole>>();
 
             await Create("Admin");
             await Create("Customer");
@@ -33,7 +33,7 @@ namespace WebUI.domain.Services
         {
             if (!await _roleManager.RoleExistsAsync(name))
             {
-                var role = new IdentityRole { Name = name };
+                var role = new AppRole { Name = name };
                 await _roleManager.CreateAsync(role);
             }
         }

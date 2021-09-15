@@ -34,6 +34,7 @@ namespace WebUI.domain
         {
             services.AddDBConnection(Configuration);
             services.AddControllersWithViews();
+            services.AddRazorPages();
 
             services.AddScoped<DbContext, AppDbContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -73,6 +74,7 @@ namespace WebUI.domain
                 endpoints.MapControllerRoute(
                     name: "default", 
                     pattern: "{controller=home}/{action=index}/{id?}");
+                endpoints.MapRazorPages();
             });
 
 
