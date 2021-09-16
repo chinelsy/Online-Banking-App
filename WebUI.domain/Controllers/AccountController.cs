@@ -13,7 +13,6 @@ using OnlineBanking.Domain.Interfaces.Services;
 using OnlineBanking.Domain.Services;
 using WebUI.domain.Interfaces.Services;
 using WebUI.domain.Middlewares;
-using WebUI.domain.Model;
 using WebUI.domain.Models;
 
 namespace WebUI.domain.Controllers
@@ -206,15 +205,13 @@ namespace WebUI.domain.Controllers
                 return View();
             }
 
-            var user = new User
+            var (result, user) = await AddUserAsync(new IdentityViewModel
             {
                 FullName = $"{model.FirstName} {model.LastName}",
-                Email = model.Email,
-                UserName = model.Email
-            };
-            var randPassword = new Guid().ToString("N").Substring(0, 8);
+                Email = model.Email
+            });
 
-            var result = await _userManager.CreateAsync(user, randPassword);
+
             if (result.Succeeded)
             {
                _customerService.Add(model, user, new ClaimsViewModel{Username = User.GetUsername()});
@@ -246,7 +243,21 @@ namespace WebUI.domain.Controllers
             }
         }
 
+
+        private async Task<(IdentityResult result, User user)> AddUserAsync(IdentityViewModel model)
+        {
+
+            var user = new User
+            {
+                FullName = model.FullName,
+                Email = model.Email,
+                UserName = model.Username
+            };
+            var randPassword = new Guid().ToString("N").Substring(0, 8);
+
+            var result = await _userManager.CreateAsync(user, randPassword);
+            return (result, user);
+        }
+
     }
-
-
 }

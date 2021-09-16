@@ -1,11 +1,9 @@
-﻿
-
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using OnlineBanking.Domain.Entities;
 using OnlineBanking.Domain.Enumerators;
 
-namespace WebUI.domain.Model { 
+namespace WebUI.domain.Models { 
    public class RegisterViewModel
     {
         public Guid Id { get; set; }

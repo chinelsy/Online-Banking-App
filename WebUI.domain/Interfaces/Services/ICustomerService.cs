@@ -1,5 +1,4 @@
 ﻿using OnlineBanking.Domain.Entities;
-using WebUI.domain.Model;
 using WebUI.domain.Models;
 
 namespace WebUI.domain.Interfaces.Services

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebUI.domain.Model
+namespace WebUI.domain.Models
 {
     public class ResetPasswordViewModel
     {

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using OnlineBanking.Domain.Entities;
 using OnlineBanking.Domain.Enumerators;
 
-namespace WebUI.domain.Model
+namespace WebUI.domain.Models
 {
     public class EnrollCustomerViewModel
     {

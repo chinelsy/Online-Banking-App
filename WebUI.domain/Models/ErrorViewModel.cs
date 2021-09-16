@@ -1,6 +1,4 @@
-using System;
-
-namespace WebUI.domain.Model
+namespace WebUI.domain.Models
 {
     public class ErrorViewModel
     {
